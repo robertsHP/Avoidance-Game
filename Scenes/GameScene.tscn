@@ -1,0 +1,176 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Scripts/Player.cs" type="Script" id=1]
+[ext_resource path="res://Texture/Player.png" type="Texture" id=2]
+[ext_resource path="res://SceneNodes/Enemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/BorderDetection.cs" type="Script" id=4]
+[ext_resource path="res://Scripts/GameGlobal.cs" type="Script" id=5]
+[ext_resource path="res://Scripts/GameOverMessage.cs" type="Script" id=6]
+[ext_resource path="res://Scripts/TimeCounter.cs" type="Script" id=7]
+[ext_resource path="res://Texture/Background.png" type="Texture" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 16 )
+
+[node name="GameScene" type="Node2D"]
+script = ExtResource( 5 )
+gameOverMessagePath = NodePath("UI/GameOverMessage")
+timeCounterPath = NodePath("UI/TimeCounter")
+
+[node name="Background" type="Sprite" parent="."]
+modulate = Color( 0.301961, 0.262745, 0.262745, 1 )
+position = Vector2( 511.5, 300.5 )
+scale = Vector2( 2.27778, 1.88365 )
+texture = ExtResource( 8 )
+
+[node name="Player" type="Area2D" parent="."]
+position = Vector2( 512, 280 )
+script = ExtResource( 1 )
+speed = 5.0
+spritePath = NodePath("Sprite")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Player"]
+position = Vector2( 7.62939e-06, 1.90735e-06 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource( 3 )]
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 264, 320 )
+speed = 4.0
+
+[node name="Enemy3" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 416, 104 )
+
+[node name="Enemy4" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 864, 488 )
+speed = 4.0
+
+[node name="Enemy5" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 776, 184 )
+speed = 5.0
+
+[node name="Enemy6" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 512, 488 )
+speed = 1.0
+
+[node name="Enemy7" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 152, 504 )
+
+[node name="Enemy8" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 888, 96 )
+speed = 4.0
+
+[node name="Enemy9" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 256, 136 )
+
+[node name="Enemy10" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 104, 392 )
+
+[node name="Enemy11" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 336, 448 )
+speed = 3.0
+
+[node name="Enemy12" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 760, 336 )
+speed = 1.0
+
+[node name="Enemy13" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 600, 144 )
+
+[node name="Enemy14" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 720, 64 )
+speed = 5.0
+
+[node name="Enemy15" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 696, 520 )
+speed = 3.0
+
+[node name="Enemy16" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 920, 344 )
+
+[node name="BorderDetection" type="Node2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="BorderWest" type="Area2D" parent="BorderDetection"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BorderDetection/BorderWest"]
+polygon = PoolVector2Array( 0, 0, -64, -64, -64, 664, 0, 600 )
+
+[node name="BorderNorth" type="Area2D" parent="BorderDetection"]
+position = Vector2( 216, -72 )
+rotation = 1.57079
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BorderDetection/BorderNorth"]
+position = Vector2( 72.0009, -384 )
+polygon = PoolVector2Array( 0.000941816, -424, -63.9989, -488, -64, 664, 0, 600 )
+
+[node name="BorderEast" type="Area2D" parent="BorderDetection"]
+position = Vector2( 1264, -40 )
+rotation = 1.57079
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BorderDetection/BorderEast"]
+position = Vector2( 72.0009, -384 )
+polygon = PoolVector2Array( 567.999, 624.001, 631.999, 560.001, -96.0012, 560, -32.0014, 624 )
+
+[node name="BorderSouth" type="Area2D" parent="BorderDetection"]
+position = Vector2( 808, 672 )
+rotation = -1.57079
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BorderDetection/BorderSouth"]
+position = Vector2( 72.0009, -384 )
+polygon = PoolVector2Array( 0.000941816, -424, -63.9989, -488, -64, 664, 0, 600 )
+
+[node name="UI" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="GameOverMessage" type="Panel" parent="UI"]
+visible = false
+margin_left = 416.0
+margin_top = 232.0
+margin_right = 608.0
+margin_bottom = 304.0
+script = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="UI/GameOverMessage"]
+margin_left = 64.0
+margin_top = 16.0
+margin_right = 137.0
+margin_bottom = 30.0
+text = "Game Over"
+
+[node name="Button" type="Button" parent="UI/GameOverMessage"]
+margin_left = 40.0
+margin_top = 40.0
+margin_right = 152.0
+margin_bottom = 60.0
+text = "Play again!"
+
+[node name="TimeCounter" type="Control" parent="UI"]
+margin_right = 1024.0
+margin_bottom = 32.0
+script = ExtResource( 7 )
+labelPath = NodePath("Label")
+
+[node name="Label" type="Label" parent="UI/TimeCounter"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 1016.0
+margin_bottom = 22.0
+text = "Time: "
+align = 1
+valign = 1
+
+[connection signal="area_entered" from="Player" to="Player" method="_on_Player_area_entered"]
+[connection signal="area_entered" from="BorderDetection/BorderWest" to="BorderDetection" method="_on_BorderWest_area_entered"]
+[connection signal="area_entered" from="BorderDetection/BorderNorth" to="BorderDetection" method="_on_BorderNorth_area_entered"]
+[connection signal="area_entered" from="BorderDetection/BorderEast" to="BorderDetection" method="_on_BorderEast_area_entered"]
+[connection signal="area_entered" from="BorderDetection/BorderSouth" to="BorderDetection" method="_on_BorderSouth_area_entered"]
+[connection signal="pressed" from="UI/GameOverMessage/Button" to="UI/GameOverMessage" method="_on_Button_pressed"]
